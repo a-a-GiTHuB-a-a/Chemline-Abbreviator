@@ -15,7 +15,7 @@ public class AbbreviatorGTAddon implements IGTAddon {
 
     @Override
     public GTRegistrate getRegistrate() {
-        return AbbreviatorMod.ABBREVIATOR_REGISTRATE;
+        return AbbreviatorMod.REGISTRATE;
     }
 
     @Override
