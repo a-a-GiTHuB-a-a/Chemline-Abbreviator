@@ -6,8 +6,7 @@
   "mixins": [
     "DummyMixin"
   ],
-  "client": [
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

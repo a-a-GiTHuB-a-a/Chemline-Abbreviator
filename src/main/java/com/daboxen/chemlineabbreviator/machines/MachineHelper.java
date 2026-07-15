@@ -4,13 +4,13 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
-import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
-import com.gregtechceu.gtceu.api.pattern.Predicates;
-import com.ibm.icu.text.MessagePattern;
-
+import com.gregtechceu.gtceu.api.multiblock.Predicates;
+import com.gregtechceu.gtceu.api.multiblock.pattern.MultiblockPatternBuilder;
 import static com.daboxen.chemlineabbreviator.AbbreviatorMod.LOGGER;
 import static com.daboxen.chemlineabbreviator.AbbreviatorMod.REGISTRATE;
+import static com.daboxen.chemlineabbreviator.blocks.AbbreviatorBlocks.*;
 import static com.daboxen.chemlineabbreviator.recipes.ChemlineRecipeTypes.*;
+import static com.gregtechceu.gtceu.api.multiblock.util.RelativeDirection.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 
 public class MachineHelper {
@@ -20,14 +20,14 @@ public class MachineHelper {
             .rotationState(RotationState.ALL)
             .recipeType(CHEMLINE_ABBREVIATOR_RECIPES)
             .appearanceBlock(COMPUTER_CASING)
-            .pattern(definition -> FactoryBlockPattern.start(/*FRONT, UP, RIGHT*/)
-                    .aisle("OOOOO", "OCCCO", "OCECO", "OCCCO", "OOVOO")
-                    .aisle(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
-                    .aisle(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
-                    .aisle(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
-                    .aisle(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
-                    .aisle(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
-                    .aisle("IIIII", "IMMMI", "IMAMI", "IMMMI", "IIVII")
+            .pattern(definition -> MultiblockPatternBuilder.start(RIGHT, UP, FRONT)
+                    .slice("OOOOO", "OCCCO", "OCECO", "OCCCO", "OOVOO")
+                    .slice(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
+                    .slice(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
+                    .slice(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
+                    .slice(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
+                    .slice(" HHH ", " CHC ", " CWC ", " CHC ", " HVH ")
+                    .slice("IIIII", "ICCCI", "ICACI", "ICCCI", "IIMII")
                     .where('A', Predicates.controller(Predicates.blocks(definition.get())))
                     .where('E', Predicates.abilities(PartAbility.INPUT_ENERGY)) //add lasers later?
                     .where('H', Predicates.blocks(COMPUTER_CASING.get()))
@@ -39,13 +39,12 @@ public class MachineHelper {
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
                     .where(' ', Predicates.any())
                     .where('C', Predicates.blocks(HIGH_POWER_CASING.get()))
-                    .where('M', Predicates.blocks(HIGH_POWER_CASING.get())
-                            .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
+                    .where('M', Predicates.abilities(PartAbility.MAINTENANCE))
                     .where('V', Predicates.blocks(COMPUTER_HEAT_VENT.get()))
-                    .where('W', Predicates.blocks(SUPERCONDUCTING_COIL.get()))
+                    .where('W', Predicates.blocks(ODITRIVA_CASING.get()))
                     .build())
             .workableCasingModel(GTCEu.id("block/casings/hpca/high_power_casing"),
-                    GTCEu.id("block/multiblock/data_bank/overlay_front"))
+                    GTCEu.id("block/multiblock/data_bank"))
             .register();
 
     public static void init() {

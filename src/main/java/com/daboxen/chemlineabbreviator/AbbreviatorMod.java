@@ -1,10 +1,11 @@
 package com.daboxen.chemlineabbreviator;
 
+import com.daboxen.chemlineabbreviator.blocks.AbbreviatorBlocks;
+import com.daboxen.chemlineabbreviator.data.AbbreviatorDatagen;
 import com.daboxen.chemlineabbreviator.machines.MachineHelper;
 import com.daboxen.chemlineabbreviator.recipes.ChemlineRecipeTypes;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
-import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
@@ -31,12 +32,13 @@ public class AbbreviatorMod {
     public static GTRegistrate REGISTRATE = GTRegistrate.create(AbbreviatorMod.MOD_ID);
 
     public AbbreviatorMod() {
+        init();
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
-        modEventBus.addListener(this::addMaterialRegistries);
         modEventBus.addListener(this::addMaterials);
         modEventBus.addListener(this::modifyMaterials);
 
@@ -48,7 +50,11 @@ public class AbbreviatorMod {
         // If we want to use annotations to register event listeners,
         // we need to register our object like this!
         MinecraftForge.EVENT_BUS.register(this);
-        REGISTRATE.registerRegistrate();
+    }
+
+    private void init() {
+        AbbreviatorBlocks.init();
+        AbbreviatorDatagen.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -70,17 +76,6 @@ public class AbbreviatorMod {
      */
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);
-    }
-
-    /**
-     * Create a material manager for your mod using GT's API.
-     * You MUST have this if you have custom materials.
-     * Remember to register them not to GT's namespace, but your own.
-     * 
-     * @param event
-     */
-    private void addMaterialRegistries(MaterialRegistryEvent event) {
-        GTCEuAPI.materialManager.createRegistry(AbbreviatorMod.MOD_ID);
     }
 
     /**

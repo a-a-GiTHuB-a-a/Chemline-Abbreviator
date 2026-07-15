@@ -27,18 +27,8 @@ public class AbbreviatorGTAddon implements IGTAddon {
     }
 
     @Override
-    public void registerTagPrefixes() {
-        // CustomTagPrefixes.init();
-    }
-
-    @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
         RecipeManager.addRecipes(provider);
-    }
-
-    @Override
-    public void registerElements() {
-        // CustomElements.init();
     }
 
     // If you have custom ingredient types, uncomment this & change to match your capability.

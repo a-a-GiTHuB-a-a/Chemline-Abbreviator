@@ -13,5 +13,8 @@ public class ChemlineAbbreviatorMachine extends WorkableElectricMultiblockMachin
 
     public List<String> currentRecipeTypes = new ArrayList<>();
 
-    //public on
+    @Override
+    public void createStructurePatterns() {
+        super.createStructurePatterns();
+    }
 }

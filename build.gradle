@@ -30,6 +30,7 @@ repositories {
         url = 'https://maven.gtceu.com'
         content {
             includeGroup 'com.gregtechceu.gtceu'
+            includeGroup "brachy.modularui"
         }
     }
     maven {
@@ -130,7 +131,7 @@ legacyForge {
 }
 jar {
     manifest.attributes([
-            "MixinConfigs": "chemlineabbreviator.mixins.json"
+            "MixinConfigs": "${mod_id}.mixins.json"
     ])
 }
 
@@ -151,7 +152,7 @@ dependencies {
 
     // GregTech and dependencies
     modImplementation("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gtceu_version}:slim") { transitive = false }
-    modImplementation("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") { transitive = false }
+    modImplementation("brachy.modularui:modularui-mc${minecraft_version}:${mui_version}") { transitive = false }
     modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
     //modImplementation("dev.toma.configuration:configuration-${minecraft_version}:${configuration_version}")
     modImplementation("curse.maven:configuration-444699:5840405")
@@ -161,7 +162,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
-// See com.daboxen.chemlineabbreviator.mixin.DummyMixin for information about mixins
 mixin {
     add sourceSets.main, "mixins.${mod_id}.refmap.json"
     config "${mod_id}.mixins.json"
